@@ -1,0 +1,25 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock title %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+        {% block links %}{% endblock links %}
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="/" class="decoration">Головна</a>
+                <a href="" class="decoration">Викласти</a>
+                <a href="" class="decoration">Про компанію</a>
+            </nav>
+            <hr width="80%" color="#323131">
+        </header>
+
+        <main>
+            {% block content %}
+                
+            {% endblock %}
+        </main>
+    </body>
+</html>

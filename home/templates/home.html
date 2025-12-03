@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    home
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/home.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="aligment">
+        <p>Нерухомість вашої мрії</p>
+    </div>
+    <div>
+        <div class="selectors">
+            <p>
+                Пошук нерухомості
+            </p>
+            <div class="all-variants">
+                <select>
+                    <option value="type" disabled selected hidden>Тип нерухомості</option>
+                    <option value="home">Дім</option>
+                    <option value="hotel">Готель</option>
+                    <option value="flat">Квартира</option>
+                </select>
+                <select>
+                    <option value="city" disabled selected hidden>Місто</option>
+                    <option value="Dnipro">Дніпро</option>
+                    <option value="Kiev">Київ</option>
+                    <option value="Lvov">Львів</option>
+                    <option value="Odessa">Одеса</option>
+                </select>
+                <select>
+                    <option value="cost" disabled selected hidden>Ціна</option>
+                    <option value="min">0 - 5 000</option>
+                    <option value="more">5 100 - 15 000 </option>
+                    <option value="middle">15 100 - 25 000</option>
+                    <option value="more">25 100 - 30 000</option>
+                    <option value="a lot of">30 100 - ...</option>
+                </select>
+                <button>Знайти</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

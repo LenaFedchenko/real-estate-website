@@ -1,0 +1,24 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    height: 105px;
+    background-color: #000000;
+}
+nav{
+    display: flex;
+    gap: 103px;
+}
+.decoration{
+    text-decoration: none;
+    font-size: 24px;
+    color: white;
+}
