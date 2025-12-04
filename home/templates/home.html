@@ -12,26 +12,26 @@
     <div class="aligment">
         <p>Нерухомість вашої мрії</p>
     </div>
-    <div>
+    <div class="main-content">
         <div class="selectors">
             <p>
                 Пошук нерухомості
             </p>
             <div class="all-variants">
-                <select>
+                <select class="size-select">
                     <option value="type" disabled selected hidden>Тип нерухомості</option>
                     <option value="home">Дім</option>
                     <option value="hotel">Готель</option>
                     <option value="flat">Квартира</option>
                 </select>
-                <select>
+                <select class="size-select">
                     <option value="city" disabled selected hidden>Місто</option>
                     <option value="Dnipro">Дніпро</option>
                     <option value="Kiev">Київ</option>
                     <option value="Lvov">Львів</option>
                     <option value="Odessa">Одеса</option>
                 </select>
-                <select>
+                <select class="size-select">
                     <option value="cost" disabled selected hidden>Ціна</option>
                     <option value="min">0 - 5 000</option>
                     <option value="more">5 100 - 15 000 </option>
@@ -39,7 +39,42 @@
                     <option value="more">25 100 - 30 000</option>
                     <option value="a lot of">30 100 - ...</option>
                 </select>
-                <button>Знайти</button>
+                <button class="btn">Знайти</button>
+            </div>
+        </div>
+
+        <div class="prt2">
+            <img src="{{ url_for('home.static', filename='images/main_img.png') }}" alt="">
+            <p class="own-buildings">Наші будівлі</p>
+            <div class="cards">
+                <div class="card">
+                    <img src="{{ url_for('home.static', filename='images/house.png') }}" alt="">
+                    <div class="text-info">
+                        <p class="orange">Сучасний дім у Києві</p>
+                        <p class="descr">3 спальні, 120 кв. м., у столиці</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="{{ url_for('home.static', filename='images/house.png') }}" alt="">
+                    <div class="text-info">
+                        <p class="orange">Сучасний дім у Києві</p>
+                        <p class="descr">3 спальні, 120 кв. м., у столиці</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="{{ url_for('home.static', filename='images/house.png') }}" alt="">
+                    <div class="text-info">
+                        <p class="orange">Сучасний дім у Києві</p>
+                        <p class="descr">3 спальні, 120 кв. м., у столиці</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="{{ url_for('home.static', filename='images/house.png') }}" alt="">
+                    <div class="text-info">
+                        <p class="orange">Сучасний дім у Києві</p>
+                        <p class="descr">3 спальні, 120 кв. м., у столиці</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
