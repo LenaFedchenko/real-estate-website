@@ -7,7 +7,7 @@
 }
 .aligment p{
     color: #E1B651;
-    font-size: 64px;
+    font-size: var(--font64);
     font-weight: 800;
 }
 .main-content{
@@ -30,7 +30,7 @@
     border-radius: 10px;
 }
 .selectors p{
-    font-size: 32px;
+    font-size: var(--font32);
     color: white;
     font-weight: 800;
 }
@@ -44,7 +44,7 @@
 .size-select{
     width: 312px;
     height: 56px;
-    font-size: 16px;
+    font-size: var(--font16);
     background-color: #1F2225;
     color: white;
     border: none;
@@ -93,4 +93,15 @@
 .descr{
     font-size: var(--font12);
     color: #ffffffa9;
+}
+
+@media(max-width: 857px){
+    .im{
+        width: 500px;
+        height: 242px;
+    }
+    .prt2{
+        display: flex;
+        align-items: center;
+    }
 }
