@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Registration
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/register.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="all">
+
+        <div class="main">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo">
+            <p class="par">Реєстрація</p>
+            <form action="" method="post" class="form">
+                <input type="text" placeholder="Ім’я" name="username" required minlength="3" class="inp">
+                <input type="email" placeholder="Email" name="email" required class="inp">
+                <input type="password" placeholder="Пароль" name="password" required minlength="8" class="inp">
+                <input type="password" placeholder="Повторіть пароль" name="confirm_password" required class="inp">
+                <button type="submit" class="btn">Зареєструватись</button>
+            </form>
+            <a href="/login/" class="link">Авторизуватись</a>
+        </div>
+    </div>
+{% endblock %}

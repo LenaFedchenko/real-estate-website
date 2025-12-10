@@ -1,0 +1,60 @@
+body {
+    background: url("/home/static/images/house2.png") no-repeat center center fixed;
+    background-size: cover;
+}
+.logo{
+    width: 72px;
+    height: 80px;
+}
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 724px;
+    height: 552px;
+    background-color: #171A1D;
+    border-radius: 10px;
+    gap: 23px;
+}
+.all{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+.inp{
+    width: 358px;
+    height: 49px;
+    padding-left: 5px;
+    border-radius: 10px;
+    background-color: #212123;
+    color: white;
+    border: none;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 23px;
+}
+.par{
+    font-size: var(--font32);
+    color: white;
+}
+.btn{
+    width: 204px;
+    height: 49px;
+    color: black;
+    font-size: var(--font24);
+    border-radius: 10px;
+    background-color: #E1B54C;
+    border: none;
+    cursor: pointer;
+}
+.link{
+    text-decoration: none;
+    font-size: var(--font16);
+    color: #E1B54C;
+}

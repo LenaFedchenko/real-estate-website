@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block links %}
+    
+{% endblock %}
+
+{% block header %}
+    
+{% endblock %}
+
+{% block content %}
+    <div>
+        <form action="" method="post">
+            <input type="number" name="verify1" required minlength="1" autofocus>
+            <input type="number" name="verify2" required minlength="1">
+            <input type="number" name="verify3" required minlength="1">
+            <input type="number" name="verify4" required minlength="1">
+            <input type="number" name="verify5" required minlength="1">
+            <input type="number" name="verify6" required minlength="1">
+            <button type="submit">Авторизуватись</button>
+        </form>
+    </div>
+{% endblock %}
