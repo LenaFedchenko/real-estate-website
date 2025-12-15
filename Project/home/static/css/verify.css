@@ -1,0 +1,56 @@
+.all {
+    background: url("/home/static/images/house2.png") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000;
+}
+
+form {
+    background-color: #111;
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.box {
+    width: 45px;
+    height: 55px;
+    text-align: center;
+    font-size: 24px;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    background-color: #000;
+    color: #ffd700;
+    outline: none;
+}
+
+.box:focus {
+    box-shadow: 0 0 8px #ffd700;
+}
+
+button {
+    margin-left: 15px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #ffd700;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffea00;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

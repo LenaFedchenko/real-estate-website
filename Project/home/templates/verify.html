@@ -5,23 +5,20 @@
 {% endblock %}
 
 {% block links %}
-    
-{% endblock %}
-
-{% block header %}
-    
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/verify.css') }}">
 {% endblock %}
 
 {% block content %}
-    <div>
+    <div class="all">
+        
         <form action="" method="post">
-            <input type="number" name="verify1" required minlength="1" autofocus>
-            <input type="number" name="verify2" required minlength="1">
-            <input type="number" name="verify3" required minlength="1">
-            <input type="number" name="verify4" required minlength="1">
-            <input type="number" name="verify5" required minlength="1">
-            <input type="number" name="verify6" required minlength="1">
-            <button type="submit">Авторизуватись</button>
+            <input type="text" name="verify1" required maxlength="1" autofocus class="box">
+            <input type="text" name="verify2" required maxlength="1" class="box">
+            <input type="text" name="verify3" required maxlength="1" class="box">
+            <input type="text" name="verify4" required maxlength="1" class="box">
+            <input type="text" name="verify5" required maxlength="1" class="box">
+            <input type="text" name="verify6" required maxlength="1" class="box">
+            <button type="text">Авторизуватись</button>
         </form>
     </div>
 {% endblock %}
