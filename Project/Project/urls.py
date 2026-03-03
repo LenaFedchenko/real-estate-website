@@ -1,4 +1,4 @@
-import home, publish
+import home, publish, catalog
 
 
 home.home.add_url_rule(
@@ -25,4 +25,19 @@ home.home.add_url_rule(
     rule= "/verify/",
     view_func= home.verify_code,
     methods=['GET', 'POST']
+)
+catalog.catalog.add_url_rule(
+    rule="/catalog/",
+    view_func= catalog.render_catalog,
+    methods=['GET', 'POST']
+)
+
+catalog.catalog.add_url_rule(
+    rule="/admin/",
+    view_func= catalog.render_admin,
+    methods=['GET', 'POST']
+)
+catalog.catalog.add_url_rule(
+    rule="/delete/",
+    view_func= catalog.delete_product
 )

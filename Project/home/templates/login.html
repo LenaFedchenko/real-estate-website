@@ -5,19 +5,21 @@
 {% endblock %}
 
 {% block links %}
-    
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/login.css') }}">
 {% endblock %}
 
 
 {% block content %}
-    <div>
-        <form action="" method="post">
-            <p>Ім'я</p>
-            <input type="text" name="username" required minlength="3" placeholder="Введіть ім'я">
-            <p>Пароль</p>
-            <input type="password" name="password" required minlength="8" placeholder="Введіть пароль">
-            <button type="submit">Авторизуватись</button>
-        </form>
+    <div class="all">
+        <div class="main">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo">
+            <form action="" method="post" class="form">
+                <input type="text" name="username" required minlength="3" placeholder="Введіть ім'я" class="inp">
+                <input type="password" name="password" required minlength="8" placeholder="Введіть пароль" class="inp">
+                <button type="submit" class="btn">Авторизуватись</button>
+            </form>
+            <a href="/register" class="link">Зареєструватись</a>
+        </div>
     </div>
 
 {% endblock %}

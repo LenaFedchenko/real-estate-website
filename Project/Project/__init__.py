@@ -12,3 +12,4 @@ from .loginmanager import *
 
 project.register_blueprint(blueprint= home.home)
 project.register_blueprint(blueprint= publish.publish)
+project.register_blueprint(blueprint= catalog.catalog)

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Product 
+{% endblock %}
+
+{% block links %}
+
+{% endblock %}
+
+
+{% block content %}
+    {% if product %}
+    <div>
+        <h2>{{product.name}}</h2>
+        <img src="{{url_for('catalog.static', filename='media/' + product.image_url) }}" alt="">
+    </div>
+    {% else %}
+        <h2>Product not found</h2>
+    {% endif %}
+{% endblock %}
