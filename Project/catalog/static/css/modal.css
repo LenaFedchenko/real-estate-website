@@ -1,6 +1,103 @@
-#modal{
+/* Затемнённый фон */
+#modal {
     display: none;
-    width: 300px;
-    height: 300px;
-    background-color: aqua;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+}
+
+/* Центрирование через transform */
+.modal-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 650px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: linear-gradient(145deg, #111, #1c1c1c);
+    border: 2px solid #d4af37;
+    border-radius: 25px;
+    padding: 40px;
+
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.3);
+    animation: fadeIn 0.25s ease;
+}
+
+/* Заголовок */
+.modal-box h2 {
+    text-align: center;
+    color: #d4af37;
+    margin-bottom: 25px;
+}
+
+/* Форма */
+.modal-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Поля */
+.modal-box input {
+    padding: 12px 15px;
+    background: #0f0f0f;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+.modal-box input:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+/* Кнопка */
+.modal-box button[type="submit"] {
+    margin-top: 10px;
+    padding: 14px;
+    background: #d4af37;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-box button[type="submit"]:hover {
+    background: #b8962e;
+}
+
+/* Крестик */
+#closeModal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #d4af37;
+    cursor: pointer;
+}
+
+#closeModal:hover {
+    color: white;
+}
+
+/* Анимация */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -55%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }

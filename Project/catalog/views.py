@@ -18,7 +18,7 @@ def render_catalog():
                 query = query.filter(Product.category == category)
             else:
                 query = query.all()
-    pagination = query.paginate(page=page, per_page=2)
+    pagination = query.paginate(page=page, per_page=3)
     for product in Product.query.all():
         if product.category not in categories:
             categories.append(product.category)
@@ -27,7 +27,7 @@ def render_catalog():
 def render_admin():
     if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
         page = request.args.get("page", 1, type= int)
-        pagination = Product.query.paginate(page=page, per_page=1)
+        pagination = Product.query.paginate(page=page, per_page=3)
         if flask.request.method == "POST":
             city = flask.request.form["city"]
             product = Product.query.filter_by(city= city).first()
