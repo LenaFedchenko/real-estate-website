@@ -40,7 +40,16 @@ def render_admin():
                     old_price = flask.request.form["old_price"],
                     image_url = image.filename,
                     category = flask.request.form["category"],
-                    distric = flask.request.form["distric"]
+                    distric = flask.request.form["distric"],
+                    adress = flask.request.form["adress"],
+                    floor = flask.request.form["floor"],
+                    square = flask.request.form["square"],
+                    rooms = flask.request.form["rooms"],
+                    buy_rent = flask.request.form["buy_rent"],
+                    owner = flask.request.form["owner"],
+                    name_owner = flask.request.form["name_owner"],
+                    email_owner = flask.request.form["email_owner"],
+                    phone_owner = flask.request.form["phone_owner"]
                 )
                 DATA_BASE.session.add(product)
                 DATA_BASE.session.commit()
