@@ -3,6 +3,7 @@ from .settings import *
 from .db import*
 from .loadenv import execute
 from home.models import User
+from publish.models import Flat
 # add registration blueprint
 from .config_page import config_page
 from .loginmanager import *

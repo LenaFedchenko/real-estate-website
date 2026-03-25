@@ -53,7 +53,7 @@ def render_admin():
                 )
                 DATA_BASE.session.add(product)
                 DATA_BASE.session.commit()
-        return flask.render_template("admin.html", products=pagination.items, pagination= pagination)
+        return flask.render_template("admin.html", products=pagination.items, pagination= pagination, text= "hello, Lena")
     else:
         return "404"
 def delete_product():

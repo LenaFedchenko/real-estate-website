@@ -9,7 +9,10 @@ from flask_mail import Message
 from Project.settings import mail
 
 def render_home():
-    return flask.render_template("home.html")
+    if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
+        return flask.render_template("home.html", text= "hello, Lena")
+    else:
+        return flask.render_template("home.html")
 
 
 def render_login():
