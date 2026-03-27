@@ -68,5 +68,6 @@ def delete_product():
 def render_product_by_id(id: int):
     product = Product.query.get(ident=id)
     return {
+        "message": "Successfully",
         "product": product
     }

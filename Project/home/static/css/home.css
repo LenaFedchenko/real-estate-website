@@ -94,7 +94,10 @@
     font-size: var(--font12);
     color: #ffffffa9;
 }
-
+.img-flat{
+    width: 172px;
+    height: 162px;
+}
 @media(max-width: 857px){
     .im{
         width: 500px;

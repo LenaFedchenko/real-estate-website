@@ -2,6 +2,7 @@ import flask, os
 from Project.db import DATA_BASE
 from .models import Flat
 
+
 def render_publish():
     if flask.request.method == "POST":
         city = flask.request.form["city"]
@@ -48,4 +49,5 @@ def render_publish():
         )
         DATA_BASE.session.add(post_flat)
         DATA_BASE.session.commit()
+        return flask.redirect("/")
     return flask.render_template("publish.html")

@@ -41,3 +41,8 @@ catalog.catalog.add_url_rule(
     rule="/delete/",
     view_func= catalog.delete_product
 )
+catalog.catalog.add_url_rule(
+    rule="/catalog/<int:id>/",
+    view_func= catalog.render_product_by_id,
+    methods=['GET', 'POST']
+)

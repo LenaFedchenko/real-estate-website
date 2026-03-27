@@ -7,12 +7,19 @@ from Project.config_page import config_page
 import flask_login
 from flask_mail import Message
 from Project.settings import mail
+from publish.models import Flat
 
 def render_home():
     if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
         return flask.render_template("home.html", text= "hello, Lena")
     else:
-        return flask.render_template("home.html")
+        flats = Flat.query.all()
+        flats_list = []
+        # list_img = []
+        for flat in flats:
+            # img = flat.images.split("|")
+            flats_list.append(flat)
+        return flask.render_template("home.html", flats_list= flats_list)
 
 
 def render_login():
@@ -29,7 +36,7 @@ def render_login():
         return flask.redirect("/")    
 
 
-@config_page(name= "register.html", redirect_to= "/verify")
+@config_page(name= "register.html", url= "/verify")
 def render_register():
     message = ""
     if flask.request.method == 'POST':
