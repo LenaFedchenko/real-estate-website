@@ -11,7 +11,13 @@ from publish.models import Flat
 
 def render_home():
     if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
-        return flask.render_template("home.html", text= "hello, Lena")
+        flats = Flat.query.all()
+        flats_list = []
+        # list_img = []
+        for flat in flats:
+            # img = flat.images.split("|")
+            flats_list.append(flat)
+        return flask.render_template("home.html", text= "hello, Lena", flats_list= flats_list)
     else:
         flats = Flat.query.all()
         flats_list = []

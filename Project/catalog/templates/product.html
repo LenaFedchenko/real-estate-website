@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Product 
+    Об'єкт нерухомості
 {% endblock %}
 
 {% block links %}
@@ -11,11 +11,25 @@
 
 {% block content %}
     {% if product %}
-    <div>
-        <h2>{{product.name}}</h2>
-        <img src="{{url_for('catalog.static', filename='media/' + product.image_url) }}" alt="">
+    <div class="product-detail">
+        <h2>{{ product.city }}{% if product.district %} • {{ product.district }}{% endif %}</h2>
+        <p>{{ product.address }}</p>
+
+        {% if product.images %}
+            <img src="{{ url_for('publish.static', filename='images/media/' + product.images.split('|')[1]) }}" alt="">
+        {% endif %}
+
+        <div class="details">
+            <p>Площа: {{ product.area }} м²</p>
+            <p>Кімнат: {{ product.rooms }}</p>
+            <p>Поверх: {{ product.floor }}</p>
+            <p>Тип угоди: {{ product.deal_type }}</p>
+            <p>Власник: {{ product.owner_name }}</p>
+            <p>Телефон: {{ product.owner_phone }}</p>
+            <p>Email: {{ product.owner_email }}</p>
+        </div>
     </div>
     {% else %}
-        <h2>Product not found</h2>
+        <h2>Об'єкт не знайдено</h2>
     {% endif %}
 {% endblock %}

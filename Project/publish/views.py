@@ -23,7 +23,7 @@ def render_publish():
         owner_email = flask.request.form["owner_email"]
 
         images = flask.request.files.getlist("images")
-        print(images)
+        # print(images)
         path = os.path.abspath(os.path.join(__file__, "..", "static", "images", "media"))
         imgs = ""
         for file in images:

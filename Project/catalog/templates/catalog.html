@@ -8,53 +8,58 @@
 
 {% block content %}
 
-    <h1 class="page-title">Каталог нерухомості</h1>
+<h1 class="page-title">Каталог нерухомості</h1>
 
-    {% if products %}
-        <div class="catalog-grid">
-            {% for product in products %}
+{% if products %}
+<div class="catalog-grid">
+    {% for product in products %}
 
-                <div class="product-card">
-                    <a href="/catalog/{{product.id}}">
-                        <img src="{{ url_for('catalog.static', filename='media/' + product.image_url) }}" alt="">
-                    </a>
+    <div class="product-card">
+        <a href="/catalog/{{ product.id }}">
+            {% if product.images %}
+                <img src="{{ url_for('publish.static', filename='images/media/' + product.images.split('|')[1]) }}" alt="">
+            {% endif %}
+        </a>
 
-                    <div class="product-info">
-                        <h3>{{ product.city }}</h3>
+        <div class="product-info">
+            <h3>{{ product.city }}{% if product.district %} • {{ product.district }}{% endif %}</h3>
 
-                        <div class="price-block">
-                            {% if product.old_price %}
-                                <span class="old-price">{{ product.old_price }} $</span>
-                            {% endif %}
-                            <span class="price">{{ product.price }} $</span>
-                        </div>
+            <div class="price-block">
+                <span class="price">{{ product.price }} $</span>
+            </div>
 
-                        <p class="details">
-                            {{ product.square }} м² • 
-                            {{ product.rooms }} кімн. • 
-                            {{ product.floor }} поверх
-                        </p>
-                    </div>
-                </div>
+            <p class="details">
+                {{ product.area }} м² • 
+                {{ product.rooms }} кімн. • 
+                {{ product.floor }} поверх • 
+                {{ product.deal_type }}
+            </p>
 
-            {% endfor %}
+            <p class="owner-info">
+                {% if product.owner_name %}{{ product.owner_name }}{% endif %}
+                {% if product.owner_phone %} • {{ product.owner_phone }}{% endif %}
+            </p>
         </div>
-    {% endif %}
-    <div class="pagination">
-        {% if pagination.has_prev %}
-            <a href="?page={{pagination.prev_num}}">←</a>
-        {% endif %}
-
-        {% for page in range(1, pagination.pages + 1) %}
-            <a href="?page={{page}}" 
-            class="{% if page == pagination.page %}active{% endif %}">
-                {{page}}
-            </a>
-        {% endfor %}
-
-        {% if pagination.has_next %}
-            <a href="?page={{pagination.next_num}}">→</a>
-        {% endif %}
     </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="pagination">
+    {% if pagination.has_prev %}
+        <a href="?page={{ pagination.prev_num }}">←</a>
+    {% endif %}
+
+    {% for page in range(1, pagination.pages + 1) %}
+        <a href="?page={{ page }}" class="{% if page == pagination.page %}active{% endif %}">
+            {{ page }}
+        </a>
+    {% endfor %}
+
+    {% if pagination.has_next %}
+        <a href="?page={{ pagination.next_num }}">→</a>
+    {% endif %}
+</div>
 
 {% endblock %}
