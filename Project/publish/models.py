@@ -17,3 +17,4 @@ class Flat(DATA_BASE.Model):
     owner_phone = DATA_BASE.Column(DATA_BASE.Integer, default=False)
     owner_email = DATA_BASE.Column(DATA_BASE.String, default=False)
     images = DATA_BASE.Column(DATA_BASE.String, default=False)
+    describe = DATA_BASE.Column(DATA_BASE.String, default=False)

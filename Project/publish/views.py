@@ -24,6 +24,7 @@ def render_publish():
                 owner_name = flask.request.form["owner_name"]
                 owner_phone = flask.request.form["owner_phone"]
                 owner_email = flask.request.form["owner_email"]
+                describe = flask.request.form.get("describe")
 
                 images = flask.request.files.getlist("images")
                 # print(images)
@@ -48,7 +49,8 @@ def render_publish():
                     owner_name= owner_name,
                     owner_phone= owner_phone,
                     owner_email= owner_email,
-                    images= imgs
+                    images= imgs,
+                    describe= describe
                 )
                 DATA_BASE.session.add(post_flat)
                 DATA_BASE.session.commit()
