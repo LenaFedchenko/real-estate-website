@@ -115,3 +115,13 @@ def verify_code():
             return flask.redirect("/")
 
     return flask.render_template("verify.html")
+
+def render_profile():
+    if not flask_login.current_user.is_authenticated:
+        return flask.redirect("/login")  # если не вошел, редирект на логин
+
+    # # Данные для шаблона
+    user_flats = User.query.filter_by(email = flask_login.current_user.email).first()
+    flats_of_user = Flat.query.filter_by(owner_email = flask_login.current_user.email).all()
+    print(flats_of_user)
+    return flask.render_template("profile.html", user_flats= user_flats, flats_of_user= flats_of_user)

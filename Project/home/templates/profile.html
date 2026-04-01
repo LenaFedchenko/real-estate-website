@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Профіль
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('home.static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="profile-container">
+        <!-- Левая колонка: информация пользователя -->
+        <div class="user-sidebar">
+            <div class="user-card">
+                <h2>{{ user_flats.username }}</h2>
+                <p>{{ user_flats.email }}</p>
+                <p>Зареєстрований користувач</p>
+            </div>
+        </div>
+
+        <!-- Правая колонка: квартиры пользователя -->
+        <div class="flats-column">
+            {% if flats_of_user %}
+                <h2>Мої оголошення</h2>
+                <div class="flats-grid">
+                    {% for flat in flats_of_user %}
+                        <div class="flat-item">
+                            {% if flat.images %}
+                                <img src="{{ url_for('publish.static', filename='images/media/' + flat.images.split('|')[1]) }}" alt="Flat image">
+                            {% endif %}
+                            <div class="flat-info">
+                                <p><strong>Місто:</strong> {{ flat.city }}</p>
+                                <p><strong>Адреса:</strong> {{ flat.address }}</p>
+                                <p><strong>Ціна:</strong> {{ flat.price }} $</p>
+                                <p><strong>Кімнат:</strong> {{ flat.rooms }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>У вас поки немає оголошень.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -17,6 +17,11 @@ home.home.add_url_rule(
     methods=['GET', 'POST']
     )
 home.home.add_url_rule(
+    rule='/profile/', 
+    view_func= home.render_profile, 
+    methods=['GET', 'POST']
+    )
+home.home.add_url_rule(
     rule='/login/', 
     view_func= home.render_login, 
     methods=['GET', 'POST']

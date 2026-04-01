@@ -1,0 +1,71 @@
+body {
+    background-color: #0d0d0d;
+    color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+.profile-container {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+}
+
+/* Левая колонка — пользователь */
+.user-sidebar {
+    width: 250px;
+}
+
+.user-card {
+    background-color: #1c1c1c;
+    border: 2px solid #ffb600;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.user-card h2 {
+    color: #ffb600;
+    margin-bottom: 10px;
+}
+
+.user-card p {
+    margin: 5px 0;
+}
+
+/* Правая колонка — квартиры */
+.flats-column {
+    flex-grow: 1;
+}
+
+.flats-column h2 {
+    color: #ffb600;
+    margin-bottom: 20px;
+}
+
+.flats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.flat-item {
+    background-color: #1c1c1c;
+    border: 2px solid #ffb600;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.flat-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.flat-info {
+    padding: 10px;
+}
+
+.flat-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}

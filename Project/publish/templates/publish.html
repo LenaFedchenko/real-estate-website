@@ -15,104 +15,115 @@ home
         <p>Швидко, легко та ефективно: опублікуйте оголошення</p>
     </div>
 
-    <!-- FORM -->
-    <form method="POST" enctype="multipart/form-data">
-        <div class="container">
-            <div class="form-box">
-                <h2>Основні параметри</h2>
+    {% if error_text %}
+    <div class="message error">{{ error_text }}</div>
+    {% endif %}
+    {% if text %}
+        <div class="message info">{{ text }}</div>
+    {% endif %}
+        <!-- FORM -->
+        <form method="POST" enctype="multipart/form-data">
+            <div class="container">
+                <div class="form-box">
+                    <h2>Основні параметри</h2>
 
-                <div class="grid-2">
-                    <input type="text" name="city" placeholder="Місто">
-                    <input type="text" name="district" placeholder="Район">
+                    <div class="grid-2">
+                        <input type="text" name="city" placeholder="Місто">
+                        <input type="text" name="district" placeholder="Район">
+                    </div>
+
+                    <div class="grid-2">
+                        <input type="text" name="address" placeholder="Адреса">
+                        <input type="number" name="floor" placeholder="Поверх">
+                    </div>
+
+                    <div class="grid-2">
+                        <input type="number" name="area" placeholder="Площа (м²)">
+                        <input type="number" name="price" placeholder="Ціна ($)">
+                    </div>
+
+                    <div class="grid-2">
+                        <select name="property_type">
+                            <option disabled selected>Тип нерухомості</option>
+                            <option value="house">Дім</option>
+                            <option value="flat">Квартира</option>
+                            <option value="hotel">Готель</option>
+                        </select>
+
+                        <select name="rooms">
+                            <option disabled selected>Кількість кімнат</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+
+                    <!-- Оренда / Продаж -->
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="deal_type" value="rent">
+                            <span>Оренда</span>
+                        </label>
+
+                        <label class="radio-item">
+                            <input type="radio" name="deal_type" value="sale">
+                            <span>Продаж</span>
+                        </label>
+                    </div>
+
+                    <!-- Рієлтор / Власник -->
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="owner_type" value="realtor">
+                            <span>Рієлтор</span>
+                        </label>
+
+                        <label class="radio-item">
+                            <input type="radio" name="owner_type" value="owner">
+                            <span>Власник</span>
+                        </label>
+                    </div>
+
+                    <h2>Інформація про власника</h2>
+
+                    <div class="grid-1">
+                        <input type="text" name="owner_name" placeholder="Ім’я">
+                        <input type="text" name="owner_phone" placeholder="Телефон">
+                        <input type="email" name="owner_email" placeholder="Email">
+                    </div>
+                </div>
+                <div>
+
+                    <div class="info-box">
+                        <h2>Переваги публікації</h2>
+                        <ul>
+                            <li>✔ Швидка аудиторія</li>
+                            <li>✔ Висока модерація</li>
+                            <li>✔ Простий інтерфейс</li>
+                        </ul>
+                    </div>
+                    <h2>Фотографії</h2>
+    
+                    <div class="upload-box">
+                        <label class="upload-label">
+                            <input type="file" name="images" multiple accept="image/*">
+                            <span>Натисніть або перетягніть фото</span>
+                        </label>
+    
+                        <div id="preview" class="preview"></div>
+                    </div>
                 </div>
 
-                <div class="grid-2">
-                    <input type="text" name="address" placeholder="Адреса">
-                    <input type="number" name="floor" placeholder="Поверх">
-                </div>
-
-                <div class="grid-2">
-                    <input type="number" name="area" placeholder="Площа (м²)">
-                    <input type="number" name="price" placeholder="Ціна ($)">
-                </div>
-
-                <div class="grid-2">
-                    <select name="property_type">
-                        <option disabled selected>Тип нерухомості</option>
-                        <option value="house">Дім</option>
-                        <option value="flat">Квартира</option>
-                        <option value="hotel">Готель</option>
-                    </select>
-
-                    <select name="rooms">
-                        <option disabled selected>Кількість кімнат</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-
-                <!-- Оренда / Продаж -->
-                <div class="radio-group">
-                    <label class="radio-item">
-                        <input type="radio" name="deal_type" value="rent">
-                        <span>Оренда</span>
-                    </label>
-
-                    <label class="radio-item">
-                        <input type="radio" name="deal_type" value="sale">
-                        <span>Продаж</span>
-                    </label>
-                </div>
-
-                <!-- Рієлтор / Власник -->
-                <div class="radio-group">
-                    <label class="radio-item">
-                        <input type="radio" name="owner_type" value="realtor">
-                        <span>Рієлтор</span>
-                    </label>
-
-                    <label class="radio-item">
-                        <input type="radio" name="owner_type" value="owner">
-                        <span>Власник</span>
-                    </label>
-                </div>
-
-                <h2>Інформація про власника</h2>
-
-                <div class="grid-1">
-                    <input type="text" name="owner_name" placeholder="Ім’я">
-                    <input type="text" name="owner_phone" placeholder="Телефон">
-                    <input type="email" name="owner_email" placeholder="Email">
+                <div class="submit-box">
+                    <button type="submit" class="submit-btn">Далі</button>
                 </div>
             </div>
 
-            <div class="info-box">
-                <h2>Переваги публікації</h2>
-                <ul>
-                    <li>✔ Швидка аудиторія</li>
-                    <li>✔ Висока модерація</li>
-                    <li>✔ Простий інтерфейс</li>
-                </ul>
-            </div>
-        </div>
+            
+        </form>
+    </div>
 
-        <h2>Фотографії</h2>
 
-        <div class="upload-box">
-            <label class="upload-label">
-                <input type="file" name="images" multiple accept="image/*">
-                <span>Натисніть або перетягніть фото</span>
-            </label>
-
-            <div id="preview" class="preview"></div>
-        </div>
-
-        <div class="submit-box">
-            <button type="submit" class="submit-btn">Далі</button>
-        </div>
-    </form>
-</div>
 
 <script src="{{ url_for('publish.static', filename='js/publish.js') }}"></script>
 {% endblock %}
