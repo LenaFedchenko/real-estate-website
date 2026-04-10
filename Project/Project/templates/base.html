@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock title %}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
         {% block links %}{% endblock links %}
     </head>
     <body>
@@ -27,5 +28,20 @@
                 
             {% endblock %}
         </main>
+        <footer>
+            <h3>Оцініть сайт:</h3>
+            <div class="stars" id="stars">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+
+            <p id="result">Ваша оцінка: 0</p>
+
+
+            <script src="{{ url_for('static', filename='js/footer.js') }}"></script>
+        </footer>
     </body>
 </html>

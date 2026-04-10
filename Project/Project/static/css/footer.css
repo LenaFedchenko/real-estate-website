@@ -1,0 +1,17 @@
+                footer {
+                    text-align: center;
+                    padding: 20px;
+                }
+
+                .stars {
+                    font-size: 30px;
+                    cursor: pointer;
+                }
+
+                .star {
+                    color: gray;
+                }
+
+                .star.active {
+                    color: gold;
+                }
