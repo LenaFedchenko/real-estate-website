@@ -114,3 +114,10 @@ body {
     padding: 15px;
     border-radius: 10px;
 }
+.map {
+    margin-top: 20px;
+}
+
+.map iframe {
+    border-radius: 10px;
+}
