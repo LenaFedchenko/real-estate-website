@@ -20,7 +20,7 @@ def render_catalog():
             else:
                 query = query.all()
 
-    pagination = query.paginate(page=page, per_page=3)
+    pagination = query.paginate(page=page, per_page=5)
 
     # Список уникальных городов для фильтра
     for flat in Flat.query.all():
@@ -37,7 +37,7 @@ def render_catalog():
 def render_admin():
     if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
         page = request.args.get("page", 1, type=int)
-        pagination = Flat.query.paginate(page=page, per_page=3)
+        pagination = Flat.query.paginate(page=page, per_page=5)
 
         if flask.request.method == "POST":
             city = flask.request.form["city"]

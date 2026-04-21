@@ -30,11 +30,11 @@ def render_home():
 
 def render_login():
     if flask.request.method == "POST":
-        name = flask.request.form["username"]
+        email = flask.request.form["email"]
         password = flask.request.form["password"]
-        users = User.query.all()
+        users = User.query.filter_by(email= email).all()
         for user in users:
-            if user.username == name and user.password == password:
+            if user.email == email and user.password == password:
                 flask_login.login_user(user)
     if not flask_login.current_user.is_authenticated:
         return flask.render_template("login.html")
@@ -120,3 +120,42 @@ def render_profile():
     flats_of_user = Flat.query.filter_by(owner_email = flask_login.current_user.email).all()
     print(flats_of_user)
     return flask.render_template("profile.html", user_flats= user_flats, flats_of_user= flats_of_user)
+def edit(id):
+    if not flask_login.current_user.is_authenticated:
+        return flask.redirect("/login")  # если не вошел, редирект на логин
+
+
+    flat = Flat.query.get_or_404(id)
+    if flask.request.method == "POST":
+        city = flask.request.form["city"]
+        price = flask.request.form["price"]
+        # old_price = flask.request.form["old_price"]
+        deal_type = flask.request.form["deal_type"]
+        district = flask.request.form["district"]
+        address = flask.request.form["address"]
+        floor = flask.request.form["floor"]
+        area = flask.request.form["area"]
+        rooms = flask.request.form["rooms"]
+        # deal_type = flask.request.form["buy_rent"]
+        owner_type = flask.request.form["owner_type"]
+        owner_name = flask.request.form["owner_name"]
+        owner_email = flask.request.form["owner_email"]
+        owner_phone = flask.request.form["owner_phone"]
+
+        flat.city = city
+        flat.price = price
+        # flat.old_price = old_price
+        flat.deal_type = deal_type
+        flat.district = district
+        flat.address = address
+        flat.floor = floor
+        flat.area = area
+        flat.rooms = rooms
+        # flat.buy_rent = buy_rent
+        flat.owner_type = owner_type
+        flat.owner_name = owner_name
+        flat.owner_email = owner_email
+        flat.owner_phone = owner_phone
+        DATA_BASE.session.commit()
+
+    return flask.render_template("edit.html", flat= flat)

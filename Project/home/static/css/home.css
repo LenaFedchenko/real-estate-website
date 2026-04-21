@@ -1,110 +1,166 @@
-.aligment{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* базовые */
+body{
+    margin: 0;
+    background-color: #0f1113;
+    font-family: Arial, sans-serif;
+}
+
+/* HERO */
+.hero{
+    position: relative;
     width: 100%;
-    height: 107px;
+    height: 100vh;
+    overflow: hidden;
 }
-.aligment p{
-    color: #E1B651;
-    font-size: var(--font64);
-    font-weight: 800;
+
+
+.hero-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
-.main-content{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 119px;
-}
-.selectors{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 30px;
-    gap: 36px;
-    width: 397px;
-    background-color: #171A1D;
-    border-radius: 10px;
-}
-.selectors p{
-    font-size: var(--font32);
+
+/* текст */
+.hero-overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    text-align: center;
     color: white;
-    font-weight: 800;
+
+    padding: 30px 50px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
 }
-.all-variants{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+
+/* заголовок */
+.hero-overlay h1{
+    font-family: 'Playfair Display', serif;
+    font-size: 72px; /* было 56 */
+    font-weight: 800;
+    color: #E1B651;
+
+    letter-spacing: 1px;
+    line-height: 1.1;
+
+    margin-bottom: 15px;
+
+    /* эффект глубины */
+    text-shadow: 
+        0 4px 20px rgba(0,0,0,0.8),
+        0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* подпись */
+.hero-overlay p{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+.hero-overlay h1::after{
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #E1B651;
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* стрелка */
+.scroll-down{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    color: white;
+    opacity: 0.7;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+    0%, 100%{ transform: translate(-50%, 0); }
+    50%{ transform: translate(-50%, 10px); }
+}
+
+/* секция */
+.content-section{
+    background: linear-gradient(to bottom, #0f1113, #171819);
+    padding: 70px 0;
+}
+
+/* контейнер */
+.container{
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* заголовок */
+.section-title{
+    text-align: center;
+    color: white;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+/* карточки */
+.cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 25px;
 }
-.size-select{
-    width: 312px;
-    height: 56px;
-    font-size: var(--font16);
-    background-color: #1F2225;
-    color: white;
-    border: none;
-}
-.btn{
-    width: 204px;
-    height: 49px;
-    background-color: #E1B651;
-    font-size: 20px;
-    color: #000000;
-    border-radius: 5px;
-    border: none;
-}
-.prt2{
-    display: flex;
-    gap: 19px;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-.own-buildings{
-    color: white;
-    font-size: var(--font32);
-}
-.cards{
-    display: flex;
-    gap: 54px;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
+
+/* карточка */
 .card{
-    width: 171px;
-    height: 281px;
     background-color: #171819;
-    border-radius: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+    cursor: pointer;
 }
-.text-info{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 10px;
+
+.card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
 }
-.orange{
-    font-size: var(--font16);
-    color: #E1B54C;
-}
-.descr{
-    font-size: var(--font12);
-    color: #ffffffa9;
-}
+
+/* картинка */
 .img-flat{
-    width: 172px;
-    height: 162px;
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
 }
-@media(max-width: 857px){
-    .im{
-        width: 500px;
-        height: 242px;
+
+/* текст */
+.text-info{
+    padding: 12px;
+}
+
+.orange{
+    color: #E1B54C;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.descr{
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+@media(max-width: 768px){
+    .hero-overlay h1{
+        font-size: 38px;
     }
-    .prt2{
-        display: flex;
-        align-items: center;
+
+    .hero-overlay p{
+        font-size: 16px;
     }
 }

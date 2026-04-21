@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Редагування
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('publish.static', filename='css/publish.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page">
+
+    <div class="header">
+        <h1>Редагування оголошення</h1>
+        <p>Оновіть інформацію про нерухомість</p>
+    </div>
+
+    {% if error_text %}
+    <div class="message error">{{ error_text }}</div>
+    {% endif %}
+
+    {% if text %}
+    <div class="message info">{{ text }}</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <div class="container">
+
+            <div class="form-box">
+
+                <h2>Основні параметри</h2>
+
+                <div class="grid-2">
+                    <input type="text" name="city" placeholder="Місто" value="{{ flat.city }}">
+                    <input type="text" name="district" placeholder="Район" value="{{ flat.district }}">
+                </div>
+
+                <div class="grid-2">
+                    <input type="text" name="address" placeholder="Адреса" value="{{ flat.address }}">
+                    <input type="number" name="floor" placeholder="Поверх" value="{{ flat.floor }}">
+                </div>
+
+                <div class="grid-2">
+                    <input type="number" name="area" placeholder="Площа (м²)" value="{{ flat.area }}">
+                    <input type="number" name="price" placeholder="Ціна ($)" value="{{ flat.price }}">
+                </div>
+
+                <div class="grid-2">
+                    <input type="text" name="property_type" placeholder="Тип нерухомості" value="{{ flat.property_type }}">
+
+                    <select name="rooms">
+                        <option value="1" {% if flat.rooms == 1 %}selected{% endif %}>1</option>
+                        <option value="2" {% if flat.rooms == 2 %}selected{% endif %}>2</option>
+                        <option value="3" {% if flat.rooms == 3 %}selected{% endif %}>3</option>
+                    </select>
+                </div>
+
+                <h2>Тип угоди</h2>
+
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="deal_type" value="rent"
+                        {% if flat.deal_type == 'rent' %}checked{% endif %}>
+                        <span>Оренда</span>
+                    </label>
+
+                    <label class="radio-item">
+                        <input type="radio" name="deal_type" value="sale"
+                        {% if flat.deal_type == 'sale' %}checked{% endif %}>
+                        <span>Продаж</span>
+                    </label>
+                </div>
+
+                <h2>Тип власника</h2>
+
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="owner_type" value="realtor"
+                        {% if flat.owner_type == 'realtor' %}checked{% endif %}>
+                        <span>Рієлтор</span>
+                    </label>
+
+                    <label class="radio-item">
+                        <input type="radio" name="owner_type" value="owner"
+                        {% if flat.owner_type == 'owner' %}checked{% endif %}>
+                        <span>Власник</span>
+                    </label>
+                </div>
+
+                <h2>Інформація про власника</h2>
+
+                <div class="grid-1">
+                    <input type="text" name="owner_name" placeholder="Ім’я" value="{{ flat.owner_name }}">
+                    <input type="text" name="owner_phone" placeholder="Телефон" value="{{ flat.owner_phone }}">
+                    <input type="email" name="owner_email" placeholder="Email" value="{{ flat.owner_email }}">
+                </div>
+
+            </div>
+
+            <div>
+
+                <div class="info-box">
+                    <h2>Переваги публікації</h2>
+                    <ul>
+                        <li>✔ Швидка аудиторія</li>
+                        <li>✔ Висока модерація</li>
+                        <li>✔ Простий інтерфейс</li>
+                    </ul>
+                </div>
+
+                <div class="upload-box">
+
+                    <div class="textarea-box">
+                        <label for="describe">Опис</label>
+                        <textarea name="describe" id="describe">{{ flat.describe }}</textarea>
+                    </div>
+
+                    <div id="preview" class="preview"></div>
+
+                </div>
+            </div>
+
+            <div class="submit-box">
+                <button type="submit" class="submit-btn">Оновити</button>
+            </div>
+
+        </div>
+
+    </form>
+</div>
+
+<script src="{{ url_for('publish.static', filename='js/publish.js') }}"></script>
+{% endblock %}

@@ -6,60 +6,43 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('home.static', filename='css/home.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 {% endblock links %}
 
 {% block content %}
-    <p style="color: white;">{{text}}</p>
-    <div class="aligment">
-        <p>Нерухомість вашої мрії</p>
+
+<!-- HERO -->
+<div class="hero">
+    <img src="{{ url_for('home.static', filename='images/backgr.png') }}" class="hero-img">
+
+    <div class="hero-overlay">
+        <h1>Нерухомість вашої мрії</h1>
+        <p>Знайдіть ідеальний варіант для життя</p>
     </div>
-    <div class="main-content">
-        <div class="selectors">
-            <p>
-                Пошук нерухомості
-            </p>
-            <div class="all-variants">
-                <select class="size-select">
-                    <option value="type" disabled selected hidden>Тип нерухомості</option>
-                    <option value="home">Дім</option>
-                    <option value="hotel">Готель</option>
-                    <option value="flat">Квартира</option>
-                </select>
-                <select class="size-select">
-                    <option value="city" disabled selected hidden>Місто</option>
-                    <option value="Dnipro">Дніпро</option>
-                    <option value="Kiev">Київ</option>
-                    <option value="Lvov">Львів</option>
-                    <option value="Odessa">Одеса</option>
-                </select>
-                <select class="size-select">
-                    <option value="cost" disabled selected hidden>Ціна</option>
-                    <option value="min">0 - 5 000</option>
-                    <option value="more">5 100 - 15 000 </option>
-                    <option value="middle">15 100 - 25 000</option>
-                    <option value="more">25 100 - 30 000</option>
-                    <option value="a lot of">30 100 - ...</option>
-                </select>
-                <button class="btn">Знайти</button>
-            </div>
-        </div>
 
+    <div class="scroll-down">↓</div>
+</div>
 
-        <div class="prt2">
-            <img src="{{ url_for('home.static', filename='images/main_img.png') }}" alt="" class="im">
-            <p class="own-buildings">Наші будівлі</p>
-            <div class="cards">
-                {% for card in flats_list %}
+<!-- CONTENT -->
+<div class="content-section">
+    <div class="container">
+        <h2 class="section-title">Наші будівлі</h2>
+
+        <div class="cards">
+            {% for card in flats_list %}
+                <a href="/catalog/{{ card.id }}" style="text-decoration: none;">    
                     <div class="card">
-                        <img src="{{ url_for('publish.static', filename='images/media/' + card.images.split('|')[1]) }}" alt="" class="img-flat">
+                        <img src="{{ url_for('publish.static', filename='images/media/' + card.images.split('|')[1]) }}" class="img-flat">
+    
                         <div class="text-info">
-                            <p class="orange">Сучасний дім у {{card.city}}</p>
-                            <p class="descr">{{card.rooms}} спальні, {{card.area}} кв. м., у столиці</p>
+                            <p class="orange">{{card.city}}</p>
+                            <p class="descr">{{card.rooms}} спальні • {{card.area}} м²</p>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </a>
+            {% endfor %}
         </div>
     </div>
-{% endblock %}
+</div>
 
+{% endblock %}

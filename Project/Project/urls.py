@@ -12,6 +12,16 @@ publish.publish.add_url_rule(
     methods=['GET', 'POST']
 )
 home.home.add_url_rule(
+    rule="/edit/<int:id>", 
+    view_func= home.edit, 
+    methods=['GET', 'POST']
+    )
+home.home.add_url_rule(
+    rule='/logout/', 
+    view_func= home.logout, 
+    methods=['GET', 'POST']
+    )
+home.home.add_url_rule(
     rule='/register/', 
     view_func= home.render_register, 
     methods=['GET', 'POST']

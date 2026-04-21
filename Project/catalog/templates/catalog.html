@@ -13,7 +13,6 @@
 {% if products %}
 <div class="catalog-grid">
     {% for product in products %}
-
     <div class="product-card">
         <a href="/catalog/{{ product.id }}">
             {% if product.images %}
@@ -37,7 +36,7 @@
 
             <p class="owner-info">
                 {% if product.owner_name %}{{ product.owner_name }}{% endif %}
-                {% if product.owner_phone %} • {{ product.owner_phone }}{% endif %}
+                {% if product.owner_phone %} • 0{{ product.owner_phone }}{% endif %}
             </p>
         </div>
     </div>
