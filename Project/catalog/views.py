@@ -9,16 +9,11 @@ import os
 def render_catalog():
     cities = []
     page = request.args.get("page", 1, type=int)
-    queryParam = request.args.get("city")
+    selected_city = request.args.get("city", "all")
     query = Flat.query
 
-    if flask.request.method == "POST":
-        if queryParam == "filter":
-            city = request.form.get("cities")
-            if city != "all":
-                query = query.filter(Flat.city == city)
-            else:
-                query = query.all()
+    if selected_city != "all":
+        query = query.filter(Flat.city == selected_city)
 
     pagination = query.paginate(page=page, per_page=5)
 
@@ -31,7 +26,8 @@ def render_catalog():
         "catalog.html",
         products=pagination.items,
         pagination=pagination,
-        categories=cities
+        categories=cities,
+        selected_city=selected_city
     )
 
 def render_admin():
