@@ -3,31 +3,42 @@
 ![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Backend-Flask-000000?logo=flask&logoColor=white)
 ![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white)
-![Type](https://img.shields.io/badge/App-Server--Rendered%20Web-1F2937)
+![JavaScript](https://img.shields.io/badge/Frontend-Vanilla%20JS-F7DF1E?logo=javascript&logoColor=black)
 
-Real Estate Website is a Flask-based property listing platform for publishing, browsing, and managing residential real estate offers. It includes email-verified registration, property publishing with images, a paginated catalog, property detail pages, and an admin-only inventory screen.
+Real Estate Website is a Flask web app for publishing, browsing, and managing real estate listings. The project includes registration, login, property publishing, a paginated catalog, city filtering, property detail pages, user profiles, and an admin screen.
 
-## Overview
+<p align="center">
+  <img src="docs/images/home-page.png" alt="Home page screenshot" width="820">
+</p>
 
-This project addresses the core flow of a listing marketplace: attract visitors with featured properties, let authenticated users publish new offers, and provide a catalog/detail experience for browsing available listings.
+## Preview
 
-The implementation is server-rendered and database-backed, making it a good portfolio example of full-stack CRUD fundamentals with authentication and media uploads.
+### Home Page
+
+<img src="docs/images/home-page.png" alt="Home page screenshot" width="900">
+
+### Catalog Page
+
+<img src="docs/images/catalog-page.png" alt="Catalog page screenshot" width="900">
+
+### City Filter
+
+<img src="docs/images/catalog-filtered-page.png" alt="Filtered catalog screenshot" width="900">
+
+### Publish Page
+
+<img src="docs/images/publish-page.png" alt="Publish page screenshot" width="900">
 
 ## Features
 
-- Public landing page with featured property cards
-- User registration with email verification
+- Public home page with real estate visuals and listing cards
+- User registration with email verification code
 - Login and profile pages
-- Property publishing form with:
-  - city, district, and address
-  - floor, area, price, room count
-  - property type and deal type
-  - owner contact information
-  - free-text description
-  - multiple uploaded images
-- Paginated property catalog
-- Property detail page with contact block
-- User profile page showing the current user's listings
+- Property publishing form with city, district, address, price, rooms, owner contacts, description, and images
+- Catalog with pagination
+- Catalog filtering by existing cities
+- Property detail page with images and contact information
+- User profile page with the current user's listings
 - Admin page for creating and deleting listings when `User.isAdmin=True`
 
 ## Tech Stack
@@ -39,60 +50,62 @@ The implementation is server-rendered and database-backed, making it a good port
 - Flask-SQLAlchemy
 - Flask-Migrate
 - SQLite
-- Jinja2 templates
+- Jinja2
+- HTML/CSS
 - Vanilla JavaScript
 - `python-dotenv`
 
-## Architecture / Project Structure
-
-The active application code lives under the `Project/` directory.
+## Project Structure
 
 ```text
 real-estate-website/
 ├── README.md
-├── Project/
-│   ├── manage.py
-│   ├── Project/
-│   │   ├── __init__.py
-│   │   ├── config_page.py
-│   │   ├── db.py
-│   │   ├── loadenv.py
-│   │   ├── loginmanager.py
-│   │   ├── settings.py
-│   │   ├── templates/base.html
-│   │   └── migrations/
-│   ├── home/
-│   ├── publish/
-│   └── catalog/
-└── docs/
+├── manage.py
+└── Project/
+    ├── manage.py
+    ├── Project/
+    │   ├── __init__.py
+    │   ├── config_page.py
+    │   ├── db.py
+    │   ├── loginmanager.py
+    │   ├── settings.py
+    │   ├── templates/
+    │   ├── static/
+    │   └── migrations/
+    ├── home/
+    │   ├── templates/
+    │   └── static/
+    ├── catalog/
+    │   ├── templates/
+    │   └── static/
+    └── publish/
+        ├── templates/
+        └── static/
 ```
 
-### Module Responsibilities
+## App Modules
 
-- `Project/Project/`: app bootstrap, configuration, database, login manager, route registration
-- `Project/home/`: landing page, registration, login, verification, profile
-- `Project/publish/`: property creation flow and media upload handling
-- `Project/catalog/`: listing catalog, detail pages, admin create/delete screen
+- `Project/Project/`: Flask app setup, configuration, database, login manager, routes, shared templates
+- `Project/home/`: home page, registration, verification, login, profile, edit page
+- `Project/catalog/`: catalog page, city filtering, pagination, detail page, admin page
+- `Project/publish/`: property publishing form and uploaded listing images
 
 ## Getting Started
 
-### Prerequisites
-
-- Python 3.10 or newer
-- `pip`
-- SMTP credentials for the registration verification email flow
-
-### Installation
-
-This repository does not include a dependency lockfile, so dependencies need to be installed from the imported packages used by the app.
+### 1. Create a virtual environment
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
+```
+
+### 2. Install dependencies
+
+```bash
 pip install Flask Flask-Login Flask-Mail Flask-SQLAlchemy Flask-Migrate python-dotenv
 ```
 
-### Environment Variables
+### 3. Create `.env`
 
 Create a `.env` file in the repository root:
 
@@ -106,59 +119,66 @@ DB_UPGRADE=flask --app Project:project db upgrade
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `MAIL` | Yes | Sender email used by Flask-Mail |
-| `PASSWORD` | Yes | SMTP password or app password |
-| `DB_INIT` | Optional | First-time migration initialization command |
-| `DB_MIGRATE` | Optional | Migration generation command run by `execute()` |
-| `DB_UPGRADE` | Optional | Database upgrade command run by `execute()` |
+| `MAIL` | Yes | Email address used by Flask-Mail |
+| `PASSWORD` | Yes | SMTP password or Gmail app password |
+| `DB_INIT` | Optional | Migration initialization command |
+| `DB_MIGRATE` | Optional | Migration generation command |
+| `DB_UPGRADE` | Optional | Database upgrade command |
 
-### Running Locally
-
-Use the application entry point inside `Project/`:
+### 4. Run the project
 
 ```bash
 cd Project
 python manage.py
 ```
 
-The app runs on:
+Open:
 
 ```text
 http://127.0.0.1:8000/
 ```
 
-## Database
-
-- Engine: SQLite
-- Default database file: `Project/Project/instance/data.db`
-- ORM: Flask-SQLAlchemy
-- Migrations: Flask-Migrate / Alembic
-
-The project currently stores at least:
-
-- users
-- published flats/properties
-
 ## Main Routes
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home page with featured listings |
-| `/publish` | Publish a new property |
-| `/catalog/` | Browse paginated listings |
-| `/catalog/<id>/` | Property details |
-| `/register/` | Registration page |
+| `/` | Home page |
+| `/register/` | Registration |
 | `/verify/` | Email code verification |
-| `/login/` | Login page |
-| `/profile/` | Current user's profile and listings |
-| `/admin/` | Admin-only listing management |
-| `/delete/?id=<id>` | Admin-only listing deletion |
+| `/login/` | Login |
+| `/profile/` | User profile |
+| `/publish` | Publish a property |
+| `/catalog/` | Paginated catalog |
+| `/catalog/?city=<city>` | Catalog filtered by city |
+| `/catalog/<id>/` | Property detail page |
+| `/admin/` | Admin listing management |
+| `/delete/?id=<id>` | Delete listing from admin page |
+
+## Catalog Filtering
+
+The catalog filter uses a city dropdown filled from existing listings in the database. When a city is selected, JavaScript submits the filter form and Flask applies the filter before pagination.
+
+Example:
+
+```text
+/catalog/?city=Дніпро&page=1
+```
+
+This keeps pagination correct because every page link preserves the selected city.
+
+## Database
+
+- Database: SQLite
+- Default file: `Project/Project/instance/data.db`
+- ORM: Flask-SQLAlchemy
+- Migrations: Flask-Migrate / Alembic
+
+The app stores users and published real estate listings.
 
 ## Future Improvements
 
-- Wire the landing-page search selectors to real filtering logic
-- Add edit/update flows for published listings
-- Hash and validate passwords properly
-- Improve role management for admin creation
-- Add automated tests for registration, publishing, and catalog flows
-- Add Docker and production deployment configuration
+- Add automated tests for registration, publishing, catalog filtering, and profile pages
+- Hash and validate passwords securely
+- Improve admin role management
+- Add property editing and status controls
+- Add production deployment configuration
