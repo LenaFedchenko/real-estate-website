@@ -1,6 +1,5 @@
 import flask
-import random
-import flask
+import random, werkzeug.security as sequrity
 from Project.db import DATA_BASE
 from .models import User
 from Project.config_page import config_page
@@ -99,11 +98,13 @@ def verify_code():
         # добавляем начения из формы
         for num in flask.request.form.values():
             code += num
+        password = flask.session.get("password")
+        hesh_passw = sequrity.generate_password_hash(password)
         if flask.session.get("verify_code") == code:
             user = User(
                     username = flask.session.get("name"),
                     email = flask.session.get("email"),
-                    password = flask.session.get("password")
+                    password = hesh_passw
                 )
             DATA_BASE.session.add(user)
             DATA_BASE.session.commit()
@@ -118,7 +119,6 @@ def render_profile():
     # # Данные для шаблона
     user_flats = User.query.filter_by(email = flask_login.current_user.email).first()
     flats_of_user = Flat.query.filter_by(owner_email = flask_login.current_user.email).all()
-    print(flats_of_user)
     return flask.render_template("profile.html", user_flats= user_flats, flats_of_user= flats_of_user)
 def edit(id):
     if not flask_login.current_user.is_authenticated:

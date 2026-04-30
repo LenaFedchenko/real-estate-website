@@ -12,13 +12,34 @@ body {
 
 .catalog-filter {
     display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 14px;
     justify-content: center;
     padding: 0 60px 30px;
 }
 
-.catalog-filter select {
+.filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: min(100%, 280px);
+}
+
+.filter-field label {
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.price-field {
+    width: min(100%, 180px);
+}
+
+.catalog-filter select,
+.catalog-filter input {
     width: 100%;
-    max-width: 420px;
     padding: 12px 16px;
     border: 1px solid #d4af37;
     border-radius: 8px;
@@ -26,6 +47,47 @@ body {
     color: white;
     font-size: 16px;
     outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.catalog-filter select:focus,
+.catalog-filter input:focus {
+    background: #151515;
+    border-color: #f1cf67;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-actions button,
+.filter-actions a {
+    min-height: 47px;
+    padding: 0 18px;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    background: #d4af37;
+    color: #000;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.filter-actions a {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    color: #d4af37;
+}
+
+.filter-actions button:hover,
+.filter-actions a:hover {
+    background: #f1cf67;
+    color: #000;
 }
 
 /* Сетка */
@@ -93,10 +155,10 @@ body {
 }
 
 .no-results {
-    display: none;
     color: #d4af37;
     text-align: center;
-    margin: 30px 0;
+    margin: 30px 0 80px;
+    font-size: 18px;
 }
 
 /* Кнопка удалить */
@@ -140,4 +202,24 @@ body {
 .pagination a.active {
     background: #d4af37;
     color: black;
+}
+
+@media (max-width: 768px) {
+    .catalog-filter,
+    .catalog-grid {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .filter-field,
+    .price-field,
+    .filter-actions {
+        width: 100%;
+    }
+
+    .filter-actions button,
+    .filter-actions a {
+        flex: 1;
+        justify-content: center;
+    }
 }

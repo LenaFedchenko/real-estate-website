@@ -22,9 +22,31 @@
                     <p class="address">{{ product.address }}</p>
                 </div>
 
-                {% if product.images %}
-                <div class="product-image">
-                    <img src="{{ url_for('publish.static', filename='images/media/' + product.images.split('|')[1]) }}" alt="">
+                {% if current_user.is_authenticated and current_user.isAdmin %}
+                <div class="admin-actions">
+                    <a href="/admin/" class="admin-btn">Адмін панель</a>
+                    <a href="/edit/{{ product.id }}" class="admin-btn">Редагувати</a>
+                    <a href="/delete/?id={{ product.id }}" class="admin-btn danger">Видалити</a>
+                </div>
+                {% endif %}
+
+                {% set photos = product.images.split('|')|reject('equalto', '')|list if product.images else [] %}
+
+                {% if photos %}
+                <div class="product-image" data-product-slider>
+                    {% for photo in photos %}
+                    <img
+                        src="{{ url_for('publish.static', filename='images/media/' + photo) }}"
+                        alt="Фото нерухомості"
+                        class="product-slide {% if loop.first %}active{% endif %}"
+                    >
+                    {% endfor %}
+
+                    {% if photos|length > 1 %}
+                    <button class="product-slider-btn product-prev" type="button" data-product-prev aria-label="Попереднє фото">‹</button>
+                    <button class="product-slider-btn product-next" type="button" data-product-next aria-label="Наступне фото">›</button>
+                    <span class="product-counter" data-product-counter>1 / {{ photos|length }}</span>
+                    {% endif %}
                 </div>
                 {% endif %}
 
@@ -86,5 +108,6 @@
         <h2 class="not-found">Об'єкт не знайдено</h2>
         {% endif %}
         
+        <script src="{{ url_for('catalog.static', filename='js/product.js') }}"></script>
         <script src="{{ url_for('catalog.static', filename='js/map.js') }}"></script>
         {% endblock %}

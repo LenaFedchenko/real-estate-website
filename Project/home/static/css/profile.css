@@ -56,14 +56,75 @@ body {
     overflow: hidden;
 }
 
-.flat-item img {
+.profile-slider {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: #111;
+}
+
+.slider-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-slide {
+    display: none;
     width: 100%;
     height: 180px;
     object-fit: cover;
 }
 
+.profile-slide.active {
+    display: block;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255, 182, 0, 0.75);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.62);
+    color: #ffb600;
+    cursor: pointer;
+    font-size: 26px;
+    line-height: 28px;
+    transform: translateY(-50%);
+    transition: 0.2s;
+}
+
+.slider-btn:hover {
+    background: #ffb600;
+    color: #000;
+}
+
+.slider-prev {
+    left: 10px;
+}
+
+.slider-next {
+    right: 10px;
+}
+
+.slider-counter {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.68);
+    color: #fff;
+    font-size: 12px;
+}
+
 .flat-info {
+    display: block;
     padding: 10px;
+    text-decoration: none;
 }
 
 .flat-info p {
@@ -136,4 +197,21 @@ body {
 
 .edit-btn:hover {
     background: #d4a63f;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .user-sidebar {
+        width: 100%;
+    }
+
+    .logout-link {
+        position: static;
+        display: inline-block;
+        margin-top: 15px;
+    }
 }

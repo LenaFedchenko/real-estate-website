@@ -10,14 +10,44 @@ def render_catalog():
     cities = []
     page = request.args.get("page", 1, type=int)
     selected_city = request.args.get("city", "all")
+
+    # новые параметры
+    min_price = request.args.get("min_price", type=int)
+    max_price = request.args.get("max_price", type=int)
+
+    if min_price is not None and min_price < 0:
+        min_price = 0
+
+    if max_price is not None and max_price < 0:
+        max_price = 0
+
+    if min_price is not None and max_price is not None and min_price > max_price:
+        min_price, max_price = max_price, min_price
+
     query = Flat.query
 
+    # фильтр по городу
     if selected_city != "all":
         query = query.filter(Flat.city == selected_city)
 
+    # фильтр по цене
+    if min_price is not None:
+        query = query.filter(Flat.price >= min_price)
+
+    if max_price is not None:
+        query = query.filter(Flat.price <= max_price)
+
     pagination = query.paginate(page=page, per_page=5)
 
-    # Список уникальных городов для фильтра
+    filter_args = {}
+    if selected_city != "all":
+        filter_args["city"] = selected_city
+    if min_price is not None:
+        filter_args["min_price"] = min_price
+    if max_price is not None:
+        filter_args["max_price"] = max_price
+
+    # список уникальных городов
     for flat in Flat.query.all():
         if flat.city not in cities:
             cities.append(flat.city)
@@ -27,7 +57,10 @@ def render_catalog():
         products=pagination.items,
         pagination=pagination,
         categories=cities,
-        selected_city=selected_city
+        selected_city=selected_city,
+        min_price=min_price,
+        max_price=max_price,
+        filter_args=filter_args
     )
 
 def render_admin():
@@ -77,6 +110,9 @@ def render_admin():
         return "404"
 
 def delete_product():
+    if not (flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin):
+        return flask.redirect("/login/")
+
     id = request.args.get("id", type=int)
     flat = Flat.query.get(id)
     if flat:

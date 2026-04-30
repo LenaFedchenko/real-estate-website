@@ -36,24 +36,38 @@
 
             <div class="flat-card">
 
-                <a href="/catalog/{{ flat.id }}" style="text-decoration: none;">
+                <div class="flat-item">
 
-                    <div class="flat-item">
+                    {% set photos = flat.images.split('|')|reject('equalto', '')|list if flat.images else [] %}
 
-                        {% if flat.images %}
-                        <img src="{{ url_for('publish.static', filename='images/media/' + flat.images.split('|')[1]) }}"
-                             alt="Flat image">
+                    {% if photos %}
+                    <div class="profile-slider" data-slider>
+                        <a href="/catalog/{{ flat.id }}" class="slider-link">
+                            {% for photo in photos %}
+                            <img
+                                src="{{ url_for('publish.static', filename='images/media/' + photo) }}"
+                                alt="Flat image"
+                                class="profile-slide {% if loop.first %}active{% endif %}"
+                            >
+                            {% endfor %}
+                        </a>
+
+                        {% if photos|length > 1 %}
+                        <button class="slider-btn slider-prev" type="button" data-slider-prev aria-label="Попереднє фото">‹</button>
+                        <button class="slider-btn slider-next" type="button" data-slider-next aria-label="Наступне фото">›</button>
+                        <span class="slider-counter" data-slider-counter>1 / {{ photos|length }}</span>
                         {% endif %}
-
-                        <div class="flat-info">
-                            <p style="color: #E1B54C;"><strong>Місто:</strong> {{ flat.city }}</p>
-                            <p style="color: #ffffff63;"><strong>Адреса:</strong> {{ flat.adress }}</p>
-                            <p style="color: #ffffff63;"><strong>Ціна:</strong> {{ flat.price }} $</p>
-                            <p style="color: #ffffff63;"><strong>Кімнат:</strong> {{ flat.rooms }}</p>
-                        </div>
-
                     </div>
-                </a>
+                    {% endif %}
+
+                    <a href="/catalog/{{ flat.id }}" class="flat-info">
+                        <p style="color: #E1B54C;"><strong>Місто:</strong> {{ flat.city }}</p>
+                        <p style="color: #ffffff63;"><strong>Адреса:</strong> {{ flat.address }}</p>
+                        <p style="color: #ffffff63;"><strong>Ціна:</strong> {{ flat.price }} $</p>
+                        <p style="color: #ffffff63;"><strong>Кімнат:</strong> {{ flat.rooms }}</p>
+                    </a>
+
+                </div>
 
                 <!-- КНОПКА РЕДАГУВАННЯ (красиво отделена) -->
                 <div class="flat-actions">
@@ -74,4 +88,5 @@
 
     </div>
 </div>
+<script src="{{ url_for('home.static', filename='js/profile.js') }}"></script>
 {% endblock %}

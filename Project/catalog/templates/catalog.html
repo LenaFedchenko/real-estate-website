@@ -10,15 +10,49 @@
 
 <h1 class="page-title">Каталог нерухомості</h1>
 
-{% if products %}
 <form class="catalog-filter" method="get">
-    <select id="cityFilter" name="city">
-        <option value="all" {% if selected_city == "all" %}selected{% endif %}>Усі міста</option>
-        {% for city in categories %}
-            <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
-        {% endfor %}
-    </select>
+    <!-- Фильтр по городу -->
+    <div class="filter-field">
+        <label for="cityFilter">Місто</label>
+        <select id="cityFilter" name="city">
+            <option value="all" {% if selected_city == "all" %}selected{% endif %}>Усі міста</option>
+            {% for city in categories %}
+                <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="filter-field price-field">
+        <label for="minPrice">Ціна від</label>
+        <input
+            type="number"
+            name="min_price"
+            id="minPrice"
+            placeholder="0"
+            min="0"
+            value="{{ min_price if min_price is not none else '' }}"
+        >
+    </div>
+
+    <div class="filter-field price-field">
+        <label for="maxPrice">Ціна до</label>
+        <input
+            type="number"
+            name="max_price"
+            id="maxPrice"
+            placeholder="999999"
+            min="0"
+            value="{{ max_price if max_price is not none else '' }}"
+        >
+    </div>
+
+    <div class="filter-actions">
+        <button type="submit">Фільтрувати</button>
+        <a href="{{ url_for('catalog.render_catalog') }}">Скинути</a>
+    </div>
 </form>
+
+{% if products %}
 
 <div class="catalog-grid">
     {% for product in products %}
@@ -30,7 +64,10 @@
         </a>
 
         <div class="product-info">
-            <h3>{{ product.city }}{% if product.district %} • {{ product.district }}{% endif %}</h3>
+            <h3>
+                {{ product.city }}
+                {% if product.district %} • {{ product.district }}{% endif %}
+            </h3>
 
             <div class="price-block">
                 <span class="price">{{ product.price }} $</span>
@@ -49,25 +86,28 @@
             </p>
         </div>
     </div>
-
     {% endfor %}
 </div>
-<p class="no-results" id="noResults">Нічого не знайдено</p>
+
+{% else %}
+<p class="no-results">Нічого не знайдено</p>
 {% endif %}
 
+<!-- Пагинация -->
 <div class="pagination">
     {% if pagination.has_prev %}
-        <a href="?city={{ selected_city|urlencode }}&page={{ pagination.prev_num }}">←</a>
+        <a href="{{ url_for('catalog.render_catalog', page=pagination.prev_num, **filter_args) }}">←</a>
     {% endif %}
 
     {% for page in range(1, pagination.pages + 1) %}
-        <a href="?city={{ selected_city|urlencode }}&page={{ page }}" class="{% if page == pagination.page %}active{% endif %}">
+        <a href="{{ url_for('catalog.render_catalog', page=page, **filter_args) }}"
+           class="{% if page == pagination.page %}active{% endif %}">
             {{ page }}
         </a>
     {% endfor %}
 
     {% if pagination.has_next %}
-        <a href="?city={{ selected_city|urlencode }}&page={{ pagination.next_num }}">→</a>
+        <a href="{{ url_for('catalog.render_catalog', page=pagination.next_num, **filter_args) }}">→</a>
     {% endif %}
 </div>
 
