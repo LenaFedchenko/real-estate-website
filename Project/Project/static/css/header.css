@@ -7,7 +7,7 @@
 }
 
 body{
-    height: 100vh;
+    min-height: 100vh;
     background-color: #000000;
     --font12: clamp(8px, 1.5vw, 12px);
     --font16: clamp(12px, 1.5vw, 16px);
@@ -22,12 +22,15 @@ header{
     flex-direction: column;
     gap: 18px;
     width: 100%;
-    height: 105px;
+    min-height: 105px;
+    padding: 12px 20px;
     background-color: #000000;
 }
 nav{
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: clamp(60px, 8vw, 370px);
 }
 .decoration{
@@ -57,4 +60,39 @@ nav{
 .img2{
     width: 72px;
     height: 80px;
+}
+
+@media (max-width: 900px) {
+    header {
+        height: auto;
+        gap: 12px;
+    }
+
+    nav {
+        gap: 16px 24px;
+    }
+
+    .decoration {
+        font-size: 16px;
+    }
+
+    .img2 {
+        width: 54px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 520px) {
+    nav {
+        gap: 12px 16px;
+    }
+
+    .decoration,
+    .admin-nav-link {
+        font-size: 14px;
+    }
+
+    .admin-nav-link {
+        padding: 6px 10px;
+    }
 }

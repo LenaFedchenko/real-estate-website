@@ -11,8 +11,9 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 724px;
-    height: 552px;
+    width: min(724px, calc(100% - 32px));
+    min-height: 552px;
+    padding: 40px 24px;
     background-color: #171A1D;
     border-radius: 10px;
     gap: 23px;
@@ -21,10 +22,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    min-height: 90vh;
+    padding: 24px 0;
 }
 .inp{
-    width: 358px;
+    width: min(358px, 100%);
     height: 49px;
     padding-left: 5px;
     border-radius: 10px;
@@ -38,6 +40,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 23px;
+    width: 100%;
 }
 .par{
     font-size: var(--font32);
@@ -57,4 +60,21 @@ body {
     text-decoration: none;
     font-size: var(--font16);
     color: #E1B54C;
+}
+
+@media (max-width: 520px) {
+    .main {
+        min-height: auto;
+        gap: 18px;
+    }
+
+    .btn {
+        width: min(204px, 100%);
+        font-size: 18px;
+    }
+
+    .logo {
+        width: 54px;
+        height: 60px;
+    }
 }

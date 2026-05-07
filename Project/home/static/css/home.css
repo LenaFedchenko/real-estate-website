@@ -31,6 +31,7 @@ body{
     color: white;
 
     padding: 30px 50px;
+    width: min(760px, calc(100% - 32px));
     background: rgba(0,0,0,0.35);
     backdrop-filter: blur(6px);
     border-radius: 12px;
@@ -39,11 +40,11 @@ body{
 /* заголовок */
 .hero-overlay h1{
     font-family: 'Playfair Display', serif;
-    font-size: 72px; /* было 56 */
+    font-size: clamp(38px, 7vw, 72px);
     font-weight: 800;
     color: #E1B651;
 
-    letter-spacing: 1px;
+    letter-spacing: 0;
     line-height: 1.1;
 
     margin-bottom: 15px;
@@ -156,8 +157,8 @@ body{
 }
 
 @media(max-width: 768px){
-    .hero-overlay h1{
-        font-size: 38px;
+    .hero-overlay {
+        padding: 24px 18px;
     }
 
     .hero-overlay p{

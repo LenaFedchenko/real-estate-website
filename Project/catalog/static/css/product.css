@@ -14,7 +14,7 @@ body {
 
 /* CARD */
 .product-card {
-    width: 800px;
+    width: min(800px, 100%);
     background: #111;
     border-radius: 16px;
     overflow: hidden;
@@ -203,13 +203,18 @@ body {
 }
 
 .map iframe {
+    width: 100%;
     border-radius: 10px;
 }
 
 @media (max-width: 768px) {
+    .product-container {
+        padding: 24px 12px;
+    }
+
     .product-card {
         width: 100%;
-        padding: 18px;
+        padding: 16px;
     }
 
     .product-slide {
