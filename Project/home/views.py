@@ -12,17 +12,13 @@ def render_home():
     if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
         flats = Flat.query.all()
         flats_list = []
-        # list_img = []
         for flat in flats:
-            # img = flat.images.split("|")
             flats_list.append(flat)
         return flask.render_template("home.html", text= "hello, Lena", flats_list= flats_list)
     else:
         flats = Flat.query.all()
         flats_list = []
-        # list_img = []
         for flat in flats:
-            # img = flat.images.split("|")
             flats_list.append(flat)
         return flask.render_template("home.html", flats_list= flats_list)
 
@@ -33,7 +29,8 @@ def render_login():
         password = flask.request.form["password"]
         users = User.query.filter_by(email= email).all()
         for user in users:
-            if user.email == email and user.password == password:
+            is_password_compare = sequrity.check_password_hash(user.password, password=password)
+            if user.email == email and is_password_compare:
                 flask_login.login_user(user)
     if not flask_login.current_user.is_authenticated:
         return flask.render_template("login.html")
@@ -41,7 +38,7 @@ def render_login():
         return flask.redirect("/")    
 
 
-@config_page(name= "register.html", url= "/verify")
+@config_page(name= "register.html", url= "/verify/")
 def render_register():
     message = ""
     if flask.request.method == 'POST':
@@ -63,13 +60,28 @@ def render_register():
                 for num in range(6):
                     random_num = random.randint(0,9)
                     str_code += str(random_num)
-                
                 msg = Message(
-                        'Hello',
+                        "Email confirm",
                         recipients= [email],
                         sender="lenafedchenko07@gmail.com",
                         body=str_code
                     )
+                msg.html = f"""
+                    <html lang="en">
+                    <body style="margin: 0; padding: 0; background-color: #f4f4f4">
+                        <div style="max-width: 500px; margin:40px; background-color: #ffffff ;
+                        padding: 24px; border-radius: 6px; text-align: center">
+                            <h2 style="color: black">Підтвердження почти</h2>
+                            <p style="font-size: 16px; color:grey">Ваш код підтвердження:</p>
+                            <div style="font-size: 28px; font-weight: bolt; color: black; 
+                            margin: 20px; letter-spacing: 4px">
+                                {str_code}
+                            </div>
+                            <p style="font-size: 13px; color: #888">Якщо ви не реєструвалися проігноруйте цей лист</p>
+                        </div>
+                    </body>
+                    </html>
+                """
                 # Отправляет созданное письмо через почтовый сервер, который ты настроила ранее.
                 mail.send(msg)
                 # пробуем перенаправить
@@ -77,9 +89,10 @@ def render_register():
 
                 # Эта строка сохраняет сгенерированный код в сессию пользователя, чтобы потом можно было его проверить.
                 flask.session["verify_code"] = str_code
-
-                message = "Успішно"
-                
+                flask.session["name"] = name
+                flask.session["email"] = email
+                flask.session["password"] = password
+                return flask.redirect("/verify/")
             else:
                 message = "Паролі не співпадають"
         else:
@@ -108,7 +121,12 @@ def verify_code():
                 )
             DATA_BASE.session.add(user)
             DATA_BASE.session.commit()
-            return flask.redirect("/")
+            flask_login.login_user(user)
+            flask.session.pop("name", None)
+            flask.session.pop("email", None)
+            flask.session.pop("password", None)
+            flask.session.pop("verify_code", None)
+            return flask.redirect("/profile/")
 
     return flask.render_template("verify.html")
 
