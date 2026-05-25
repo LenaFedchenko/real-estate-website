@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const frame = document.getElementById("mapFrame");
 
-    if (typeof propertyAddress !== "undefined") {
+    if (frame && typeof propertyAddress !== "undefined") {
         // Кодуємо адресу для URL
         const query = encodeURIComponent(propertyAddress);
 

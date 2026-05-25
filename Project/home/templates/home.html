@@ -30,9 +30,12 @@
 
         <div class="cards">
             {% for card in flats_list %}
-                <a href="/catalog/{{ card.id }}" style="text-decoration: none;">    
+                {% set photos = card.images.split('|')|reject('equalto', '')|list if card.images else [] %}
+                <a href="/catalog/{{ card.id }}/" style="text-decoration: none;">
                     <div class="card">
-                        <img src="{{ url_for('publish.static', filename='images/media/' + card.images.split('|')[1]) }}" class="img-flat">
+                        {% if photos %}
+                        <img src="{{ url_for('publish.static', filename='images/media/' + photos[0]) }}" class="img-flat">
+                        {% endif %}
     
                         <div class="text-info">
                             <p class="orange">{{card.city}}</p>

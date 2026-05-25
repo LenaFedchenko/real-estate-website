@@ -28,30 +28,38 @@ home
                     <h2>Основні параметри</h2>
 
                     <div class="grid-2">
-                        <input type="text" name="city" placeholder="Місто">
-                        <input type="text" name="district" placeholder="Район">
+                        <input type="text" name="city" placeholder="Місто" required>
+                        <input type="text" name="district" placeholder="Район" required>
                     </div>
 
                     <div class="grid-2">
-                        <input type="text" name="address" placeholder="Адреса">
-                        <input type="number" name="floor" placeholder="Поверх">
+                        <input 
+                            type="text" 
+                            name="address" 
+                            placeholder="Адреса, наприклад: вул. Шевченка, 10"
+                            required
+                            autocomplete="street-address"
+                            pattern="^.*\d+.*$"
+                            title="Вкажіть адресу з номером будинку, наприклад: вул. Шевченка, 10"
+                        >
+                        <input type="number" name="floor" placeholder="Поверх" required>
                     </div>
 
                     <div class="grid-2">
-                        <input type="number" name="area" placeholder="Площа (м²)">
-                        <input type="number" name="price" placeholder="Ціна ($)">
+                        <input type="number" name="area" placeholder="Площа (м²)" required>
+                        <input type="number" name="price" placeholder="Ціна ($)" required>
                     </div>
 
                     <div class="grid-2">
-                        <select name="property_type">
-                            <option disabled selected>Тип нерухомості</option>
+                        <select name="property_type" required>
+                            <option value="" disabled selected>Тип нерухомості</option>
                             <option value="house">Дім</option>
                             <option value="flat">Квартира</option>
                             <option value="hotel">Готель</option>
                         </select>
 
-                        <select name="rooms">
-                            <option disabled selected>Кількість кімнат</option>
+                        <select name="rooms" required>
+                            <option value="" disabled selected>Кількість кімнат</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -61,12 +69,12 @@ home
                     <!-- Оренда / Продаж -->
                     <div class="radio-group">
                         <label class="radio-item">
-                            <input type="radio" name="deal_type" value="rent">
+                            <input type="radio" name="deal_type" value="rent" required>
                             <span>Оренда</span>
                         </label>
 
                         <label class="radio-item">
-                            <input type="radio" name="deal_type" value="sale">
+                            <input type="radio" name="deal_type" value="sale" required>
                             <span>Продаж</span>
                         </label>
                     </div>
@@ -74,12 +82,12 @@ home
                     <!-- Рієлтор / Власник -->
                     <div class="radio-group">
                         <label class="radio-item">
-                            <input type="radio" name="owner_type" value="realtor">
+                            <input type="radio" name="owner_type" value="realtor" required>
                             <span>Рієлтор</span>
                         </label>
 
                         <label class="radio-item">
-                            <input type="radio" name="owner_type" value="owner">
+                            <input type="radio" name="owner_type" value="owner" required>
                             <span>Власник</span>
                         </label>
                     </div>
@@ -87,9 +95,9 @@ home
                     <h2>Інформація про власника</h2>
 
                     <div class="grid-1">
-                        <input type="text" name="owner_name" placeholder="Ім’я">
-                        <input type="text" name="owner_phone" placeholder="Телефон">
-                        <input type="email" name="owner_email" placeholder="Email">
+                        <input type="text" name="owner_name" placeholder="Ім’я" required>
+                        <input type="text" name="owner_phone" placeholder="Телефон" required>
+                        <input type="email" name="owner_email" placeholder="Email" required>
                     </div>
                 </div>
                 <div>

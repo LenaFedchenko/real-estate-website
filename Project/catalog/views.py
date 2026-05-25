@@ -65,46 +65,70 @@ def render_catalog():
 
 def render_admin():
     if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
-        page = request.args.get("page", 1, type=int)
-        pagination = Flat.query.paginate(page=page, per_page=5)
-
         if flask.request.method == "POST":
-            city = flask.request.form["city"]
-            flat = Flat.query.filter_by(city=city).first()
-            if not flat:
+            try:
+                city = flask.request.form["city"]
+                district = flask.request.form["district"]
+                address = flask.request.form["address"]
+                floor = flask.request.form["floor"]
+                area = flask.request.form["area"]
+                price = flask.request.form["price"]
+                property_type = flask.request.form["property_type"]
+                rooms = flask.request.form["rooms"]
+                deal_type = flask.request.form["deal_type"]
+                owner_type = flask.request.form["owner_type"]
+                owner_name = flask.request.form["owner_name"]
+                owner_phone = flask.request.form["owner_phone"]
+                owner_email = flask.request.form["owner_email"]
+                describe = flask.request.form.get("describe")
+
                 images = flask.request.files.getlist("images")  # Поддержка нескольких файлов
-                image_names = []
+                path = os.path.abspath(
+                    os.path.join(os.path.dirname(__file__), "..", "publish", "static", "images", "media")
+                )
+                image_names = ""
                 for image in images:
-                    save_path = os.path.abspath(
-                        os.path.join(__file__, "..", "static", "media", image.filename)
-                    )
-                    image.save(save_path)
-                    image_names.append(image.filename)
+                    if image.filename != "":
+                        image.save(f"{path}/{image.filename}")
+                        image_names += "|" + image.filename
 
                 flat = Flat(
                     city=city,
-                    district=flask.request.form.get("district"),
-                    address=flask.request.form.get("address"),
-                    floor=flask.request.form.get("floor"),
-                    area=flask.request.form.get("area"),
-                    price=flask.request.form.get("price"),
-                    property_type=flask.request.form.get("property_type"),
-                    rooms=flask.request.form.get("rooms", 0),
-                    deal_type=flask.request.form.get("deal_type"),
-                    owner_type=flask.request.form.get("owner_type", ""),
-                    owner_name=flask.request.form.get("owner_name", ""),
-                    owner_phone=flask.request.form.get("owner_phone", ""),
-                    owner_email=flask.request.form.get("owner_email", ""),
-                    images="|".join(image_names)
+                    district=district,
+                    address=address,
+                    floor=floor,
+                    area=area,
+                    price=price,
+                    property_type=property_type,
+                    rooms=rooms,
+                    deal_type=deal_type,
+                    owner_type=owner_type,
+                    owner_name=owner_name,
+                    owner_phone=owner_phone,
+                    owner_email=owner_email,
+                    images=image_names,
+                    describe=describe
                 )
                 DATA_BASE.session.add(flat)
                 DATA_BASE.session.commit()
+                return flask.redirect(f"/catalog/{flat.id}/")
+            except:
+                page = request.args.get("page", 1, type=int)
+                pagination = Flat.query.paginate(page=page, per_page=5)
+                return flask.render_template(
+                    "admin.html",
+                    products=pagination.items,
+                    pagination=pagination,
+                    error_text="Заповніть усі поля"
+                )
+
+        page = request.args.get("page", 1, type=int)
+        pagination = Flat.query.paginate(page=page, per_page=5)
 
         return flask.render_template(
             "admin.html",
             products=pagination.items,
-            pagination=pagination,
-            text="hello, Lena"
+            pagination=pagination
         )
     else:
         return "404"

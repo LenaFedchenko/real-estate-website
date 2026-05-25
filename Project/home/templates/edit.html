@@ -38,7 +38,16 @@
                 </div>
 
                 <div class="grid-2">
-                    <input type="text" name="address" placeholder="Адреса" value="{{ flat.address }}">
+                    <input
+                        type="text"
+                        name="address"
+                        placeholder="Адреса, наприклад: вул. Шевченка, 10"
+                        value="{{ flat.address }}"
+                        required
+                        autocomplete="street-address"
+                        pattern="^.*\d+.*$"
+                        title="Вкажіть адресу з номером будинку, наприклад: вул. Шевченка, 10"
+                    >
                     <input type="number" name="floor" placeholder="Поверх" value="{{ flat.floor }}">
                 </div>
 

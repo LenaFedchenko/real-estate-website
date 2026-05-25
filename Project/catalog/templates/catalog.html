@@ -57,9 +57,10 @@
 <div class="catalog-grid">
     {% for product in products %}
     <div class="product-card">
-        <a href="/catalog/{{ product.id }}">
-            {% if product.images %}
-                <img src="{{ url_for('publish.static', filename='images/media/' + product.images.split('|')[1]) }}" alt="">
+        {% set photos = product.images.split('|')|reject('equalto', '')|list if product.images else [] %}
+        <a href="/catalog/{{ product.id }}/">
+            {% if photos %}
+                <img src="{{ url_for('publish.static', filename='images/media/' + photos[0]) }}" alt="">
             {% endif %}
         </a>
 

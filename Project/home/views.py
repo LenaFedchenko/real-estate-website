@@ -35,7 +35,7 @@ def render_login():
     if not flask_login.current_user.is_authenticated:
         return flask.render_template("login.html")
     else:
-        return flask.redirect("/")    
+        return flask.redirect("/profile")    
 
 
 @config_page(name= "register.html", url= "/verify/")
@@ -85,7 +85,6 @@ def render_register():
                 # Отправляет созданное письмо через почтовый сервер, который ты настроила ранее.
                 mail.send(msg)
                 # пробуем перенаправить
-                #ПЕРВОЕ
 
                 # Эта строка сохраняет сгенерированный код в сессию пользователя, чтобы потом можно было его проверить.
                 flask.session["verify_code"] = str_code

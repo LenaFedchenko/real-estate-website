@@ -101,7 +101,7 @@
 
         <!-- Передаємо адресу в JS -->
         <script>
-            const propertyAddress = "{{ product.city }} {{ product.address }}";
+            const propertyAddress = {{ (product.city ~ ' ' ~ (product.district or '') ~ ' ' ~ product.address)|tojson }};
         </script>
 
         {% else %}

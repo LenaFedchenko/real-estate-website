@@ -5,37 +5,130 @@
 {% endblock %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('publish.static', filename='css/publish.css') }}">
     <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/catalog.css') }}">
 {% endblock %}
 
 {% block content %}
-<p style="color: white;">{{text}}</p>
-<button id="openModal">Додати об'єкт</button>
-
-<div id="modal">
-    <div class="modal-box">
-        <button id="closeModal">&times;</button>
-        <h2>Додати об'єкт</h2>
-
-        <form method="post" enctype="multipart/form-data">
-            <input type="text" name="city" placeholder="Введіть назву міста">
-            <input type="text" name="district" placeholder="Введіть район">
-            <input type="text" name="address" placeholder="Введіть адресу">
-            <input type="text" name="floor" placeholder="Введіть поверх">
-            <input type="text" name="area" placeholder="Введіть площу (м²)">
-            <input type="text" name="price" placeholder="Введіть ціну">
-            <input type="text" name="property_type" placeholder="Тип власності">
-            <input type="text" name="rooms" placeholder="Кількість кімнат">
-            <input type="text" name="deal_type" placeholder="Купівля/оренда">
-            <input type="text" name="owner_type" placeholder="Власник/Рієлтор">
-            <input type="text" name="owner_name" placeholder="Ім'я власника">
-            <input type="text" name="owner_phone" placeholder="Телефон власника">
-            <input type="text" name="owner_email" placeholder="Email власника">
-            <input type="file" name="images" multiple accept="image/*">
-            <button type="submit">Створити</button>
-        </form>
+<div class="page">
+    <div class="header">
+        <h1>Адмін-публікація нерухомості</h1>
+        <p>Додайте квартиру з повною інформацією для каталогу та карти</p>
     </div>
+
+    {% if error_text %}
+    <div class="message error">{{ error_text }}</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        <div class="container">
+            <div class="form-box">
+                <h2>Основні параметри</h2>
+
+                <div class="grid-2">
+                    <input type="text" name="city" placeholder="Місто" required>
+                    <input type="text" name="district" placeholder="Район" required>
+                </div>
+
+                <div class="grid-2">
+                    <input
+                        type="text"
+                        name="address"
+                        placeholder="Адреса, наприклад: вул. Шевченка, 10"
+                        required
+                        autocomplete="street-address"
+                        pattern="^.*\d+.*$"
+                        title="Вкажіть адресу з номером будинку, наприклад: вул. Шевченка, 10"
+                    >
+                    <input type="number" name="floor" placeholder="Поверх" required>
+                </div>
+
+                <div class="grid-2">
+                    <input type="number" name="area" placeholder="Площа (м²)" required>
+                    <input type="number" name="price" placeholder="Ціна ($)" required>
+                </div>
+
+                <div class="grid-2">
+                    <select name="property_type" required>
+                        <option value="" disabled selected>Тип нерухомості</option>
+                        <option value="house">Дім</option>
+                        <option value="flat">Квартира</option>
+                        <option value="hotel">Готель</option>
+                    </select>
+
+                    <select name="rooms" required>
+                        <option value="" disabled selected>Кількість кімнат</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="deal_type" value="rent" required>
+                        <span>Оренда</span>
+                    </label>
+
+                    <label class="radio-item">
+                        <input type="radio" name="deal_type" value="sale" required>
+                        <span>Продаж</span>
+                    </label>
+                </div>
+
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="owner_type" value="realtor" required>
+                        <span>Рієлтор</span>
+                    </label>
+
+                    <label class="radio-item">
+                        <input type="radio" name="owner_type" value="owner" required>
+                        <span>Власник</span>
+                    </label>
+                </div>
+
+                <h2>Інформація про власника</h2>
+
+                <div class="grid-1">
+                    <input type="text" name="owner_name" placeholder="Ім’я" required>
+                    <input type="text" name="owner_phone" placeholder="Телефон" required>
+                    <input type="email" name="owner_email" placeholder="Email" required>
+                </div>
+            </div>
+
+            <div>
+                <div class="info-box">
+                    <h2>Адмін-дії</h2>
+                    <ul>
+                        <li>✔ Публікація одразу в каталозі</li>
+                        <li>✔ Адреса підтягується в карту</li>
+                        <li>✔ Після створення відкривається квартира</li>
+                    </ul>
+                </div>
+
+                <h2>Фотографії</h2>
+
+                <div class="upload-box">
+                    <label class="upload-label">
+                        <input type="file" name="images" multiple accept="image/*">
+                        <span>Натисніть або перетягніть фото</span>
+                    </label>
+
+                    <div class="textarea-box">
+                        <label for="describe">Опис</label>
+                        <textarea name="describe" id="describe" placeholder="Коротка інформація про нерухомість..."></textarea>
+                    </div>
+
+                    <div id="preview" class="preview"></div>
+                </div>
+            </div>
+
+            <div class="submit-box">
+                <button type="submit" class="submit-btn">Опублікувати</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <h1 class="page-title">Каталог нерухомості</h1>
@@ -44,8 +137,11 @@
 <div class="catalog-grid">
     {% for product in products %}
     <div class="product-card">
-        {% if product.images %}
-            <img src="{{ url_for('publish.static', filename='images/media/' + product.images.split('|')[1]) }}" alt="">
+        {% set photos = product.images.split('|')|reject('equalto', '')|list if product.images else [] %}
+        {% if photos %}
+            <a href="/catalog/{{ product.id }}/">
+                <img src="{{ url_for('publish.static', filename='images/media/' + photos[0]) }}" alt="">
+            </a>
         {% endif %}
 
         <div class="product-info">
@@ -66,9 +162,10 @@
                 {{ product.owner_name }} • {{ product.owner_phone }} • {{ product.owner_email }}
             </p>
 
-            <a class="delete-btn" href="/delete?id={{ product.id }}">
-                Видалити
-            </a>
+            <div class="card-actions">
+                <a class="view-btn" href="/catalog/{{ product.id }}/">Перейти до квартири</a>
+                <a class="delete-btn" href="/delete/?id={{ product.id }}">Видалити</a>
+            </div>
         </div>
     </div>
     {% endfor %}
@@ -91,5 +188,5 @@
     {% endif %}
 </div>
 
-<script src="{{ url_for('catalog.static', filename='js/modal.js') }}"></script>
+<script src="{{ url_for('publish.static', filename='js/publish.js') }}"></script>
 {% endblock %}
